@@ -8,7 +8,7 @@
  * Controller of the angularnewcourseApp
  */
 angular.module('angularnewcourseApp')
-  .controller('MainCtrl', ['$http', function ($http) {
+  .controller('MainCtrl', ['$http', 'baseUrl', function ($http, baseUrl) {
     var vm = this;
     vm.awesomeThings = [
       'HTML5 Boilerplate',
@@ -20,9 +20,14 @@ angular.module('angularnewcourseApp')
     activate();
 
     function activate() {
-      $http.get('https://nsi-prenota.azurewebsites.net/api/Stanza', {withCredentials: true})
-        .then(function(data) {
-          vm.stanze = data.data;
-        });
+      $http.get(baseUrl + '/api/Stanza', {withCredentials: true})
+        .then(
+          function(data) {
+            vm.stanze = data.data;
+          },
+          function(error) {
+            alert('login ko');
+          }
+        );
     }
   }]);

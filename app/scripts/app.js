@@ -38,4 +38,5 @@ angular
         redirectTo: '/'
       });
     $httpProvider.defaults.useXDomain = true;
-  });
+  })
+  .value('baseUrl', 'https://nsi-prenota-v2.azurewebsites.net');
