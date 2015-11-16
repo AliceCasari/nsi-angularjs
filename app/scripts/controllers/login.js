@@ -9,9 +9,10 @@
  */
 angular.module('angularnewcourseApp')
   .controller('LoginCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    var vm = this;
+    vm.login = login;
+
+    function login() {
+
+    }
   });
