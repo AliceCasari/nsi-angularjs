@@ -20,7 +20,7 @@ angular.module('angularnewcourseApp')
     activate();
 
     function activate() {
-      $http.get(baseUrl + '/api/Stanza', {withCredentials: true})
+      $http.get(baseUrl + '/api/Stanza')
         .then(
           function(data) {
             vm.stanze = data.data;

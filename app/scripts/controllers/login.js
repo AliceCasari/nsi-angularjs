@@ -22,8 +22,7 @@ angular.module('angularnewcourseApp')
           UserName: vm.username,
           Password: vm.password,
           IsPersistent: true
-        },
-        {withCredentials: true}
+        }
       )
       .then(
         function(response) {
