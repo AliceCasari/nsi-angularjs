@@ -15,7 +15,6 @@ angular.module('angularnewcourseApp')
       'AngularJS',
       'Karma'
     ];
-    vm.stanze = [];
 
     activate();
 

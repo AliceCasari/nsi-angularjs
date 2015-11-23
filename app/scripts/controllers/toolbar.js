@@ -14,8 +14,7 @@ angular.module('angularnewcourseApp')
     vm.logout = logout;
 
     function logout() {
-      $http.post(baseUrl + '/api/Account/Logout'
-      )
+      $http.post(baseUrl + '/api/Account/Logout')
         .then(
         function(response) {
           UtenteFactory.setUtente({});
