@@ -39,9 +39,9 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
+              <li ng-class="{'active': activePage === '/'}"><a href="#/">Home</a></li>
+              <li ng-class="{'active': activePage === '/stanze'}"><a ng-href="#/stanze">Stanze</a></li>
+              <li ng-class="{'active': activePage === '/about'}"><a ng-href="#/about">About</a></li>
             </ul>
             <div ng-if="ctrl.utente.data.Cognome" style="position: relative; float: right; top: 8px">
               <span>{{ctrl.utente.data.Nome}} {{ctrl.utente.data.Cognome}}</span>
@@ -94,6 +94,7 @@
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/toolbar.js"></script>
+        <script src="scripts/controllers/stanze.js"></script>
         <script src="scripts/services/utente.js"></script>
         <!-- endbuild -->
 </body>
