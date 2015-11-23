@@ -8,7 +8,7 @@
  * Controller of the angularnewcourseApp
  */
 angular.module('angularnewcourseApp')
-  .controller('MainCtrl', ['$http', 'baseUrl', function ($http, baseUrl) {
+  .controller('MainCtrl', ['$http', 'baseUrl', '$location', 'UtenteFactory', function ($http, baseUrl, $location, UtenteFactory) {
     var vm = this;
     vm.awesomeThings = [
       'HTML5 Boilerplate',
@@ -20,13 +20,21 @@ angular.module('angularnewcourseApp')
     activate();
 
     function activate() {
-      $http.get(baseUrl + '/api/Stanza')
+      $http.get(baseUrl + '/api/Account/UtenteId')
         .then(
           function(data) {
-            vm.stanze = data.data;
+            $http.get(baseUrl + '/api/Utente/' + data.data)
+              .then(
+                function(data) {
+                  UtenteFactory.setUtente(data.data);
+                },
+                function(error) {
+                  $location.path('/login');
+                }
+              );
           },
           function(error) {
-            alert('login ko');
+            $location.path('/login');
           }
         );
     }

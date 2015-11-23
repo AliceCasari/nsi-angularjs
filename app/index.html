@@ -21,7 +21,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <div class="header" ng-controller="ToolbarCtrl as ctrl">
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -43,7 +43,10 @@
               <li><a ng-href="#/about">About</a></li>
               <li><a ng-href="#/">Contact</a></li>
             </ul>
-            <button class="btn btn-default" ng-show="isAutenticated" style="position: relative; float: right; top: 8px" ng-click="logout()">Logout</button>
+            <div ng-if="ctrl.utente.data.Cognome" style="position: relative; float: right; top: 8px">
+              <span>{{ctrl.utente.data.Nome}} {{ctrl.utente.data.Cognome}}</span>
+              <button class="btn btn-default" ng-click="ctrl.logout()">Logout</button>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +93,8 @@
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/about.js"></script>
         <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/toolbar.js"></script>
+        <script src="scripts/services/utente.js"></script>
         <!-- endbuild -->
 </body>
 </html>

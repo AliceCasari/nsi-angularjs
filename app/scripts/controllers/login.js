@@ -8,7 +8,7 @@
  * Controller of the angularnewcourseApp
  */
 angular.module('angularnewcourseApp')
-  .controller('LoginCtrl', ['$http', '$location', 'baseUrl', '$rootScope', function ($http, $location, baseUrl, $rootScope) {
+  .controller('LoginCtrl', ['$http', '$location', 'baseUrl', function ($http, $location, baseUrl) {
     var vm = this;
     vm.username = 'admin';
     vm.password = 'Password1!';
@@ -26,28 +26,11 @@ angular.module('angularnewcourseApp')
       )
       .then(
         function(response) {
-          $rootScope.isAutenticated = true;
           $location.path('/')
         },
         function(error) {
           alert('login ko');
-          $rootScope.isAutenticated = false;
         }
       );
     }
-
-    $rootScope.logout = function () {
-      console.log('logout');
-      $http.post(baseUrl + '/api/Account/Logout'
-      )
-        .then(
-        function(response) {
-          $rootScope.isAutenticated = false;
-          $location.path('/login')
-        },
-        function(error) {
-          alert('logout ko');
-        }
-      );
-    };
   }]);
