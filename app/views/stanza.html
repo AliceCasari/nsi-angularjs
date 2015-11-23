@@ -1,4 +1,11 @@
 <div class="row marketing">
   <h4>{{stanza.stanzaDettaglio.Nome}}</h4>
   <p>Capienza stanza: {{stanza.stanzaDettaglio.Capienza}}</p>
+  <p>Stato odierno:</p>
+  <ul>
+    <li ng-repeat="stato in stanza.stanzaDettaglio.Stato">
+      <span>Inizio: {{stato.Inizio}}</span>
+      <span>Stato: {{stato.Stato}}</span>
+    </li>
+  </ul>
 </div>
