@@ -2,10 +2,12 @@
   <h4>{{stanza.stanzaDettaglio.Nome}}</h4>
   <p>Capienza stanza: {{stanza.stanzaDettaglio.Capienza}}</p>
   <p>Stato odierno:</p>
-  <ul>
+  <ul style="padding-bottom: 80px">
     <li ng-repeat="stato in stanza.stanzaDettaglio.Stato">
       <span>Inizio: {{stato.Inizio}}</span>
       <span>Stato: {{stato.Stato}}</span>
     </li>
   </ul>
+
+  <div ui-calendar ng-model="stanza.calendario"></div>
 </div>

@@ -11,6 +11,7 @@ angular.module('angularnewcourseApp')
   .controller('StanzaCtrl', ['$routeParams', '$http', 'baseUrl', function ($routeParams, $http, baseUrl) {
     var vm = this;
     vm.stanzaDettaglio = {};
+    vm.calendario = [];
 
     activate();
 
