@@ -8,15 +8,13 @@
  * Controller of the angularnewcourseApp
  */
 angular.module('angularnewcourseApp')
-  .controller('LoginCtrl', ['$http', '$location', 'baseUrl', function ($http, $location, baseUrl) {
+  .controller('LoginCtrl', ['$http', '$location', 'baseUrl', 'UtenteFactory', function ($http, $location, baseUrl, UtenteFactory) {
     var vm = this;
     vm.username = 'admin';
     vm.password = 'Password1!';
     vm.submit = login;
 
     function login() {
-      console.log('login');
-
       $http.post(baseUrl + '/api/Account/Login',
         {
           UserName: vm.username,
@@ -26,7 +24,24 @@ angular.module('angularnewcourseApp')
       )
       .then(
         function(response) {
-          $location.path('/')
+          $http.get(baseUrl + '/api/Account/UtenteId')
+            .then(
+              function(data) {
+                $http.get(baseUrl + '/api/Utente/' + data.data)
+                  .then(
+                    function(data) {
+                      UtenteFactory.setUtente(data.data);
+                      $location.path('/');
+                    },
+                    function(error) {
+                      $location.path('/login');
+                    }
+                  );
+              },
+              function(error) {
+                $location.path('/login');
+              }
+            );
         },
         function(error) {
           alert('login ko');

@@ -13,5 +13,6 @@ function UtenteFactory() {
 
   function setUtente(user) {
     utente.data = user;
+    console.log('utente settato', utente.data);
   }
 }

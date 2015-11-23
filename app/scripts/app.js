@@ -41,4 +41,15 @@ angular
     $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
   })
+  .run(RunModule)
   .value('baseUrl', 'https://nsi-prenota-v2.azurewebsites.net');
+
+RunModule.$inject = ['$rootScope', '$location', 'UtenteFactory'];
+function RunModule($rootScope, $location, UtenteFactory) {
+  $rootScope.$on('$routeChangeStart', function(event, next, current) {
+    console.log(next.$$route.originalPath.indexOf('login'), UtenteFactory.getUtente.data.Cognome);
+    if(next.$$route.originalPath.indexOf('login') === -1 && !UtenteFactory.getUtente.data.Cognome){
+      $location.path('/login');
+    }
+  });
+}
