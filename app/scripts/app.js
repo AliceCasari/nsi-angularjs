@@ -34,6 +34,12 @@ angular
         controller: 'StanzeCtrl',
         controllerAs: 'stanze'
       })
+      .when('/stanza', {
+        params: {id: null},
+        templateUrl: 'views/stanza.html',
+        controller: 'StanzaCtrl',
+        controllerAs: 'stanza'
+      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',

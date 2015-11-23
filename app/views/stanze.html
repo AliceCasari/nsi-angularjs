@@ -3,6 +3,8 @@
   <p>Lista delle stanze.</p>
 
   <ul>
-    <li ng-repeat="stanza in stanze.listaStanze">{{stanza.Nome}}</li>
+    <li ng-repeat="stanza in stanze.listaStanze">
+      <a ng-href="#/stanza?id={{stanza.Id}}">{{stanza.Nome}}</a>
+    </li>
   </ul>
 </div>
