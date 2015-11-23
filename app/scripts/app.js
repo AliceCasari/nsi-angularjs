@@ -49,13 +49,33 @@ angular
   .run(RunModule)
   .value('baseUrl', 'https://nsi-prenota-v2.azurewebsites.net');
 
-RunModule.$inject = ['$rootScope', '$location', 'UtenteFactory'];
-function RunModule($rootScope, $location, UtenteFactory) {
+RunModule.$inject = ['$rootScope', '$location', '$http', 'baseUrl', 'UtenteFactory'];
+function RunModule($rootScope, $location, $http, baseUrl, UtenteFactory) {
   $rootScope.$on('$routeChangeStart', function(event, next, current) {
-    $rootScope.activePage = next.$$route.originalPath;
-    if(next.$$route.originalPath.indexOf('login') === -1 && !UtenteFactory.getUtente.data.Cognome){
+    if(next.$$route.originalPath.indexOf('login') === -1){
+      $http.get(baseUrl + '/api/Account/UtenteId')
+        .then(
+        function(data) {
+          $http.get(baseUrl + '/api/Utente/' + data.data)
+            .then(
+            function(data) {
+              UtenteFactory.setUtente(data.data);
+              $rootScope.activePage = next.$$route.originalPath;
+              $location.path($rootScope.activePage);
+            },
+            function(error) {
+              $rootScope.activePage = '/login';
+              $location.path('/login');
+            }
+          );
+        },
+        function(error) {
+          $rootScope.activePage = '/login';
+          $location.path('/login');
+        }
+      );
+    } else {
       $rootScope.activePage = '/login';
-      $location.path('/login');
     }
   });
 }

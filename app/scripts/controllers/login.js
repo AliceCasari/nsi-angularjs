@@ -24,24 +24,7 @@ angular.module('angularnewcourseApp')
       )
       .then(
         function(response) {
-          $http.get(baseUrl + '/api/Account/UtenteId')
-            .then(
-              function(data) {
-                $http.get(baseUrl + '/api/Utente/' + data.data)
-                  .then(
-                    function(data) {
-                      UtenteFactory.setUtente(data.data);
-                      $location.path('/');
-                    },
-                    function(error) {
-                      $location.path('/login');
-                    }
-                  );
-              },
-              function(error) {
-                $location.path('/login');
-              }
-            );
+          $location.path('/');
         },
         function(error) {
           alert('login ko');
