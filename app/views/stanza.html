@@ -9,5 +9,7 @@
     </li>
   </ul>
 
-  <div ui-calendar ng-model="stanza.calendario"></div>
+  {{stanza.calendario}}
+
+  <div ui-calendar="stanza.uiConfig.calendar" ng-model="stanza.calendario"></div>
 </div>

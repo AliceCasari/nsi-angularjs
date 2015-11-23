@@ -11,7 +11,8 @@ angular.module('angularnewcourseApp')
   .controller('StanzaCtrl', ['$routeParams', '$http', 'baseUrl', function ($routeParams, $http, baseUrl) {
     var vm = this;
     vm.stanzaDettaglio = {};
-    vm.calendario = [];
+    vm.eventi = [];
+    vm.calendario = [vm.eventi];
 
     activate();
 
@@ -21,21 +22,6 @@ angular.module('angularnewcourseApp')
           .then(
           function(data) {
             vm.stanzaDettaglio = data.data;
-
-            var now = new Date(new Date().setHours(0,0,0,0));
-            var tomorrow = new Date(new Date().setHours(24,0,0,0));
-            $http.get(baseUrl + '/api/Stanza/' + $routeParams.id + '/PeriodiStato',
-              {params: {inizio: now, fine: tomorrow}}
-            )
-              .then(
-                function(data) {
-                  console.log('stato stanza', data);
-                  vm.stanzaDettaglio.Stato = data.data;
-                },
-                function(error) {
-                  alert('error');
-                }
-              );
           },
           function(error) {
             alert('error');
@@ -43,4 +29,30 @@ angular.module('angularnewcourseApp')
         );
       }
     }
+
+    vm.uiConfig = {
+      calendar:{
+        viewRender: function(view, element) {
+          vm.eventi.splice(0, vm.eventi.length);
+          var firstDayOfMonth = new Date(view.start.format()).toISOString();
+          var lastDayOfMonth = new Date(view.end.format()).toISOString();
+          $http.get(baseUrl + '/api/Stanza/' + $routeParams.id + '/PeriodiStato',
+            {params: {inizio: firstDayOfMonth, fine: lastDayOfMonth}}
+          )
+            .then(
+            function(data) {
+              console.log('stato stanza', data);
+              vm.stanzaDettaglio.Stato = data.data;
+              angular.forEach(vm.stanzaDettaglio.Stato, function(itm) {
+                vm.eventi.push({title: 'Stato ' + itm.Stato, start: itm.Inizio});
+              });
+              vm.calendario = [vm.eventi];
+            },
+            function(error) {
+              alert('error');
+            }
+          );
+        }
+      }
+    };
   }]);
